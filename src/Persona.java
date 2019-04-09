@@ -28,7 +28,7 @@ public class Persona {
 		this.comune = comune;
 		this.cmn = cmn;
 		this.dataDiNascita = dataDiNascita;
-		this.cF = calcoloCF();
+		//this.cF = calcoloCF();
 	}
 
 	public void setCF(String cF) {
@@ -70,7 +70,7 @@ public class Persona {
 		System.out.println(comune);
 		System.out.println(cmn);
 		System.out.println(dataDiNascita);
-		System.out.println(cF);	
+		//System.out.println(cF);	
 	}
 
 	private String calcoloCF() {

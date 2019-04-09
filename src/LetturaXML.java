@@ -7,6 +7,9 @@ import javax.xml.stream.XMLStreamReader;
 
 public class LetturaXML {
 	
+	private static String pathComuni = "C:\\Users\\dchia\\Documents\\_GitHub\\ProvaLetturaXML\\src\\comuni.xml";
+	private static XMLInputFactory xmlifComuni = null;
+	private static XMLStreamReader xmlrComuni = null;
 	private static XMLInputFactory xmlif = null;
 	private static XMLStreamReader xmlr = null;
 	
@@ -90,7 +93,7 @@ public class LetturaXML {
 						break;
 					case XMLStreamConstants.END_ELEMENT:
 						if (xmlr.getLocalName().equals("persona")) {
-							Persona newPersona = new Persona(nome, cognome, sesso, comune, comune, data);
+							Persona newPersona = new Persona(nome, cognome, sesso, comune, ricercaComune(comune), data);
 							persone.add(newPersona);
 						}
 						break;
@@ -121,8 +124,6 @@ public class LetturaXML {
 						}
 						break;
 					}
-				
-				
 					xmlr.next();
 				}
 		}catch (Exception e){
@@ -135,6 +136,56 @@ public class LetturaXML {
 			persone.get(i).stampa();
 		}
 		System.out.println("Numero persone: " + persone.size());
+	}
+	
+	private String ricercaComune(String comune) {
+		String nomeComune = "";
+		String lastTag = "";
+		try {
+			xmlifComuni = XMLInputFactory.newInstance();
+			xmlrComuni = xmlifComuni.createXMLStreamReader(pathComuni, new FileInputStream(pathComuni));
+		} catch (Exception e) {
+			System.out.println("Errore nell'inizializzazione del reader:");
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			while (xmlrComuni.hasNext()) { // continua a leggere finché ha eventi a disposizione
+				switch (xmlrComuni.getEventType()) { 
+					case XMLStreamConstants.START_DOCUMENT: 
+						
+						break;
+					case XMLStreamConstants.START_ELEMENT:
+						
+						lastTag = xmlrComuni.getLocalName();//passo ad una variabile d'appoggio l'ultima tag che ho letto
+
+						break;
+					case XMLStreamConstants.END_ELEMENT:
+						if (xmlrComuni.getLocalName().equals("persona")) {
+							
+						}
+						break;
+					case XMLStreamConstants.COMMENT:
+						
+						break;  
+					case XMLStreamConstants.CHARACTERS:
+						
+						if (lastTag.equals("nome")) {//se l'ultima tag che ho letto è "nome" prendo il testo
+							nomeComune = xmlrComuni.getText();
+							lastTag = "";//resetto la variabile d'appoggio
+						}
+						if (lastTag.equals("codice") && nomeComune.equals(comune)) {//se l'ultima tag che ho letto è "nome" prendo il testo
+							return xmlrComuni.getText();
+						}
+						break;
+					}
+					xmlrComuni.next();
+				}
+		}catch (Exception e){
+			System.out.println("Errore durante la lettura del file: ");
+			System.out.println(e.getMessage());
+		}
+		return "Comune non trovato";
 	}
 
 }
