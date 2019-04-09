@@ -12,9 +12,9 @@ public class Main {
 	public static void main(String[] args) {
 		LetturaXML lettura = new LetturaXML();
 		
-		lettura.letturaCodiciFiscali("C:\\Users\\dchia\\Documents\\_GitHub\\ProvaLetturaXML\\src\\codiciFiscali.xml");
+		lettura.letturaCodiciFiscali("path");
 		
-		lettura.letturaPersona("C:\\Users\\dchia\\Documents\\_GitHub\\ProvaLetturaXML\\src\\comuni.xml");
+		lettura.letturaPersona("path");
 	}
 
 }

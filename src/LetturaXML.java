@@ -79,17 +79,17 @@ public class LetturaXML {
 		
 		try {
 			while (xmlr.hasNext()) { // continua a leggere finché ha eventi a disposizione
-				switch (xmlr.getEventType()) { // switch sul tipo di evento
-					case XMLStreamConstants.START_DOCUMENT: // inizio del documento 
+				switch (xmlr.getEventType()) { 
+					case XMLStreamConstants.START_DOCUMENT: 
 						
 						break;
 					case XMLStreamConstants.START_ELEMENT:
 						
 						lastTag = xmlr.getLocalName();//passo ad una variabile d'appoggio l'ultima tag che ho letto
-						
+
 						break;
-					case XMLStreamConstants.END_ELEMENT: // fine di un elemento 
-						if (xmlr.getLocalName().equals("nome")) {
+					case XMLStreamConstants.END_ELEMENT:
+						if (xmlr.getLocalName().equals("persona")) {
 							Persona newPersona = new Persona(nome, cognome, sesso, comune, comune, data);
 							persone.add(newPersona);
 						}
@@ -97,36 +97,42 @@ public class LetturaXML {
 					case XMLStreamConstants.COMMENT:
 						
 						break;  
-					case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo
-						if (xmlr.getText().trim().length() > 0) // controlla se il testo non contiene solo spazi
-							
-						if (lastTag.equals("nome")) {//se l'ultima tag che ho letto è "codice" prendo il testo
+					case XMLStreamConstants.CHARACTERS:
+						
+						if (lastTag.equals("nome")) {//se l'ultima tag che ho letto è "nome" prendo il testo
 							nome = xmlr.getText();
+							lastTag = "";//resetto la variabile d'appoggio
 						}
-						if (lastTag.equals("cognome")) {//se l'ultima tag che ho letto è "codice" prendo il testo
+						if (lastTag.equals("cognome")) {//se l'ultima tag che ho letto è "cognome" prendo il testo
 							cognome = xmlr.getText();
+							lastTag = "";//resetto la variabile d'appoggio
 						}	
-						if (lastTag.equals("sesso")) {//se l'ultima tag che ho letto è "codice" prendo il testo
+						if (lastTag.equals("sesso")) {//se l'ultima tag che ho letto è "sesso" prendo il testo
 							sesso = xmlr.getText();
+							lastTag = "";//resetto la variabile d'appoggio
 						}
-						if (lastTag.equals("comune_nascita")) {//se l'ultima tag che ho letto è "codice" prendo il testo
+						if (lastTag.equals("comune_nascita")) {//se l'ultima tag che ho letto è "comune_nascita" prendo il testo
 							comune = xmlr.getText();
+							lastTag = "";//resetto la variabile d'appoggio
 						}
-						if (lastTag.equals("data_nascita")) {//se l'ultima tag che ho letto è "codice" prendo il testo
+						if (lastTag.equals("data_nascita")) {//se l'ultima tag che ho letto è "data_nascita" prendo il testo
 							data = xmlr.getText();
-						}
+							lastTag = "";//resetto la variabile d'appoggio
 						
 						break;
 					}
+				
+				
 					xmlr.next();
 				}
+			}
 		}catch (Exception e){
 			System.out.println("Errore durante la lettura del file: ");
 			System.out.println(e.getMessage());
 		}
 		
 		for (int i = 0; i < persone.size(); i++) {
-			System.out.println(i);
+			//System.out.println(i);
 			persone.get(i).stampa();
 		}
 		System.out.println("Numero persone: " + persone.size());
