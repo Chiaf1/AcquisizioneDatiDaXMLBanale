@@ -65,14 +65,14 @@ public class LetturaXML {
 		}
 
 		for (int i = 0; i < codiciLetti.size(); i++) {
-			//System.out.println(i);
+			// System.out.println(i);
 			System.out.println(codiciLetti.get(i));
 		}
 		System.out.println("Numero CodiciFiscali: " + codiciLetti.size());
 	}
 
 	public void letturaPersona(String pathInputPersone) {
-		
+
 		String nome = "";
 		String cognome = "";
 		String sesso = "";
@@ -101,8 +101,13 @@ public class LetturaXML {
 					break;
 				case XMLStreamConstants.END_ELEMENT:
 					if (xmlr.getLocalName().equals("persona")) {
+						if (persone.size() == 56) {
+							int fanculo =0;
+							fanculo++;
+						}
 						Persona newPersona = new Persona(nome, cognome, sesso, comune, ricercaComune(comune), data);
 						persone.add(newPersona);
+
 					}
 					break;
 				case XMLStreamConstants.COMMENT:
@@ -215,25 +220,25 @@ public class LetturaXML {
 			xmlw.writeStartElement("persone");
 			xmlw.writeAttribute("numero", Integer.toString(persone.size()));
 			for (int i = 0; i < persone.size(); i++) {
-				xmlw.writeStartElement("persona"); 
+				xmlw.writeStartElement("persona");
 				xmlw.writeAttribute("id", Integer.toString(i));
 				xmlw.writeStartElement("nome");
-				xmlw.writeCharacters(persone.get(i).getNome()); 
-				xmlw.writeEndElement(); 
+				xmlw.writeCharacters(persone.get(i).getNome());
+				xmlw.writeEndElement();
 				xmlw.writeStartElement("cognome");
-				xmlw.writeCharacters(persone.get(i).getCognome()); 
+				xmlw.writeCharacters(persone.get(i).getCognome());
 				xmlw.writeEndElement();
 				xmlw.writeStartElement("sesso");
-				xmlw.writeCharacters(persone.get(i).getSesso()); 
+				xmlw.writeCharacters(persone.get(i).getSesso());
 				xmlw.writeEndElement();
 				xmlw.writeStartElement("comune_nascita");
-				xmlw.writeCharacters(persone.get(i).getComune()); 
+				xmlw.writeCharacters(persone.get(i).getComune());
 				xmlw.writeEndElement();
 				xmlw.writeStartElement("data_nascita");
-				xmlw.writeCharacters(persone.get(i).getDataDiNascita()); 
+				xmlw.writeCharacters(persone.get(i).getDataDiNascita());
 				xmlw.writeEndElement();
 				xmlw.writeStartElement("codice_fiscale");
-				xmlw.writeCharacters(persone.get(i).getCF()); 
+				xmlw.writeCharacters(persone.get(i).getCF());
 				xmlw.writeEndElement();
 				xmlw.writeEndElement();
 			}

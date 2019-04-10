@@ -1,5 +1,4 @@
 
-
 public class Persona {
 
 	private static final String INCREABILE = "INCREABILE";
@@ -62,7 +61,7 @@ public class Persona {
 	public String getCF() {
 		return cF;
 	}
-	
+
 	public void stampa() {
 		System.out.println(nome);
 		System.out.println(cognome);
@@ -70,7 +69,7 @@ public class Persona {
 		System.out.println(comune);
 		System.out.println(cmn);
 		System.out.println(dataDiNascita);
-		System.out.println(cF);	
+		System.out.println(cF);
 	}
 
 	private String calcoloCF() {
@@ -94,7 +93,7 @@ public class Persona {
 							|| this.cognome.charAt(c - this.cognome.length()) == 'O'
 							|| this.cognome.charAt(c - this.cognome.length()) == 'U') {
 						i++;
-						newCF += this.cognome.charAt(c);
+						newCF += this.cognome.charAt(c - this.cognome.length());
 					}
 				} else {
 					return INCREABILE;
@@ -123,7 +122,7 @@ public class Persona {
 							|| this.nome.charAt(c - this.nome.length()) == 'O'
 							|| this.nome.charAt(c - this.nome.length()) == 'U') {
 						i++;
-						newCF += this.nome.charAt(c);
+						newCF += this.nome.charAt(c - this.nome.length());
 					}
 				} else {
 					return INCREABILE;
@@ -304,10 +303,10 @@ public class Persona {
 			return INCREABILE;
 		}
 
-		//aggiunta codice comune
+		// aggiunta codice comune
 		newCF += this.cmn;
-		
-		//calcolo carattere di controllo
+
+		// calcolo carattere di controllo
 		for (i = 0; i < newCF.length(); i++) {
 			if (i % 2 == 0) {
 				switch (newCF.charAt(i)) {
