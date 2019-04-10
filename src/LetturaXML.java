@@ -11,7 +11,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 public class LetturaXML {
 
-	private static String pathComuni = "C:\\Users\\dchia\\Documents\\_GitHub\\AcquisizioneDatiDaXMLBanale\\src\\comuni.xml";
+	private static String pathComuni = "C:\\Users\\francesco\\Desktop\\Arnaldo\\programmi\\AcquisizioneDatiDaXMLBanale\\src\\comuni.xml";
 	private static XMLInputFactory xmlifComuni = null;
 	private static XMLStreamReader xmlrComuni = null;
 	private static XMLInputFactory xmlif = null;
