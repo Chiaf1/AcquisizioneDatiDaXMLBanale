@@ -11,7 +11,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 public class LetturaXML {
 
-	private static String pathComuni = "C:\\Users\\francesco\\Desktop\\Arnaldo\\programmi\\AcquisizioneDatiDaXMLBanale\\src\\comuni.xml";
+	private static String pathComuni = "C:\\Users\\dchia\\Documents\\_GitHub\\AcquisizioneDatiDaXMLBanale\\src\\comuni.xml";
 	private static XMLInputFactory xmlifComuni = null;
 	private static XMLStreamReader xmlrComuni = null;
 	private static XMLInputFactory xmlif = null;
@@ -19,6 +19,7 @@ public class LetturaXML {
 	private static XMLOutputFactory xmlof = null;
 	private static XMLStreamWriter xmlw = null;
 	private ArrayList<String> codiciLetti = new ArrayList<String>();
+	private ArrayList<Persona> persone = new ArrayList<Persona>();
 
 	public void letturaCodiciFiscali(String pathCF) {
 
@@ -64,14 +65,14 @@ public class LetturaXML {
 		}
 
 		for (int i = 0; i < codiciLetti.size(); i++) {
-			System.out.println(i);
+			//System.out.println(i);
 			System.out.println(codiciLetti.get(i));
 		}
 		System.out.println("Numero CodiciFiscali: " + codiciLetti.size());
 	}
 
 	public void letturaPersona(String pathInputPersone) {
-		ArrayList<Persona> persone = new ArrayList<Persona>();
+		
 		String nome = "";
 		String cognome = "";
 		String sesso = "";
@@ -201,7 +202,7 @@ public class LetturaXML {
 	public void generaOutput() {// eliminati perchè li può prendere da solo da codici
 		try {
 			xmlof = XMLOutputFactory.newInstance();
-			xmlw = xmlof.createXMLStreamWriter(new FileOutputStream("2"), "utf-8");
+			xmlw = xmlof.createXMLStreamWriter(new FileOutputStream("codiciPersone.xml"), "utf-8");
 			xmlw.writeStartDocument("utf-8", "1.0");
 		} catch (Exception e) {
 			System.out.println("Errore nell'inizializzazione del writer:");
@@ -209,13 +210,32 @@ public class LetturaXML {
 		}
 
 		try { // blocco try per raccogliere eccezioni
-			xmlw.writeStartElement("programmaArnaldo"); // scrittura del tag radice <programmaArnaldo>
+			xmlw.writeStartElement("output"); // scrittura del tag radice <programmaArnaldo>
 			xmlw.writeComment("INIZIO LISTA"); // scrittura di un commento
-			for (int i = 0; i < codiciLetti.size(); i++) {
-				xmlw.writeStartElement("autore"); // scrittura del tag autore...
-				xmlw.writeAttribute("id", Integer.toString(i)); // ...con attributo id...
-				xmlw.writeCharacters(codiciLetti.get(i)); // ...e content dato
-				xmlw.writeEndElement(); // chiusura di </autore>
+			xmlw.writeStartElement("persone");
+			xmlw.writeAttribute("numero", Integer.toString(persone.size()));
+			for (int i = 0; i < persone.size(); i++) {
+				xmlw.writeStartElement("persona"); 
+				xmlw.writeAttribute("id", Integer.toString(i));
+				xmlw.writeStartElement("nome");
+				xmlw.writeCharacters(persone.get(i).getNome()); 
+				xmlw.writeEndElement(); 
+				xmlw.writeStartElement("cognome");
+				xmlw.writeCharacters(persone.get(i).getCognome()); 
+				xmlw.writeEndElement();
+				xmlw.writeStartElement("sesso");
+				xmlw.writeCharacters(persone.get(i).getSesso()); 
+				xmlw.writeEndElement();
+				xmlw.writeStartElement("comune_nascita");
+				xmlw.writeCharacters(persone.get(i).getComune()); 
+				xmlw.writeEndElement();
+				xmlw.writeStartElement("data_nascita");
+				xmlw.writeCharacters(persone.get(i).getDataDiNascita()); 
+				xmlw.writeEndElement();
+				xmlw.writeStartElement("codice_fiscale");
+				xmlw.writeCharacters(persone.get(i).getCF()); 
+				xmlw.writeEndElement();
+				xmlw.writeEndElement();
 			}
 			xmlw.writeEndElement(); // chiusura di </programmaArnaldo>
 			xmlw.writeEndDocument(); // scrittura della fine del documento
