@@ -14,7 +14,8 @@ public class Main {
 		
 		//lettura.letturaCodiciFiscali("C:\\Users\\dchia\\Documents\\_GitHub\\ProvaLetturaXML\\src\\codiciFiscali.xml");
 		
-		lettura.letturaPersona("C:\\Users\\dchia\\Documents\\_GitHub\\ProvaLetturaXML\\src\\inputPersone.xml");
+		lettura.letturaPersona("C:\\Users\\francesco\\Desktop\\Arnaldo\\programmi\\AcquisizioneDatiDaXMLBanale\\src\\inputPersone.xml");
+		lettura.generaOutput();
 	}
 
 }
